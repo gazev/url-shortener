@@ -1,12 +1,9 @@
 package url
 
 import (
-	"errors"
 	"mus/url/domain"
 	"mus/url/repository"
 	"strings"
-
-	"github.com/go-redis/redis/v8"
 )
 
 func CreateShortURL(r CreateShortURLRequest, ur *repository.URLRepository) (domain.URL, error) {
@@ -32,9 +29,6 @@ func GetShortURL(hash string, ur *repository.URLRepository) (domain.URL, error) 
 
 	u, err := ur.GetUrl(hashT)
 	if err != nil {
-		if errors.Is(err, redis.Nil) {
-			return domain.URL{}, err
-		}
 		return domain.URL{}, err
 	}
 

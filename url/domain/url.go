@@ -38,11 +38,7 @@ func isValidUrl(url string) bool {
 		return false
 	}
 
-	if u.Scheme != "http" && u.Scheme != "https" {
-		return false
-	}
-
-	return true
+	return u.Scheme == "http" || u.Scheme == "https"
 }
 
 func hashUrl(url string) string {
