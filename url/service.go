@@ -1,6 +1,7 @@
 package url
 
 import (
+	"mus/logger"
 	"mus/url/domain"
 	"mus/url/repository"
 	"strings"
@@ -14,7 +15,10 @@ func CreateShortURL(r CreateShortURLRequest, ur *repository.URLRepository) (doma
 
 	dbUrl, err := GetShortURL(u.Hash, ur)
 	if err == nil {
-		return dbUrl, nil
+		if dbUrl.URL == u.URL {
+			return dbUrl, nil
+		}
+		logger.LogInfo("colliding hashes!!! overwritting %s from database\n", dbUrl.URL)
 	}
 
 	if err := ur.SetUrl(u); err != nil {

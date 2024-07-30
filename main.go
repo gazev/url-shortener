@@ -12,11 +12,11 @@ func main() {
 	logger.SetLogLevel(logger.InfoLogLevel)
 
 	db := db.NewRedisClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     "mus-redis:6379",
 		Password: "",
 		DB:       0,
 	})
 
-	mus := api.NewMusAPI("127.0.0.1:8000", db)
+	mus := api.NewMusAPI("0.0.0.0:8000", db)
 	logger.LogFatal(mus.Run())
 }
