@@ -1,0 +1,20 @@
+services:
+  mus:
+    build: .
+    container_name: mus-backend
+    ports:
+      - "8000:8000"
+    networks:
+      - mus-network
+    depends_on:
+      - redis
+  
+  redis:
+    image: redis
+    container_name: mus-redis
+    networks:
+      - mus-network
+  
+networks:
+  mus-network:
+    driver: bridge
